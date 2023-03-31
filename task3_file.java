@@ -77,7 +77,7 @@ public class task3_file {
             file.close();
 
         }catch ( Exception e){
-            logger.warning(e.getMessage());;
+            logger.warning(e.getMessage());
         }
         logger.info(res);
         logger.info("log stop");
