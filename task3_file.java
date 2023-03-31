@@ -13,6 +13,9 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class task3_file {
     public static void saveOnLocal(String localFilename, String fileContent) {
@@ -20,7 +23,7 @@ public class task3_file {
             File file = new File(localFilename);
             //create the file.
             if (file.createNewFile()){
-                System.out.println("File is created!");
+                System.out.println("File was created!");
             }
             else{
                 System.out.println("File already exists.");
@@ -52,17 +55,32 @@ public class task3_file {
         return res;
     }
     public static String read(String localFilename) {
+
+        Logger logger = Logger.getLogger("MyLog");
+        FileHandler file_log;
+
         String res = "";
         try{
+            file_log = new FileHandler("Task_3_LogFile.log");
+            logger.addHandler(file_log);
+            SimpleFormatter formatter = new SimpleFormatter();
+            file_log.setFormatter(formatter);
+
+            // the following statement is used to log any messages
+            logger.info("log start");
+
             FileReader file= new FileReader(localFilename);
             Scanner scan = new Scanner(file);
             while (scan.hasNextLine()) {
                 res += scan.nextLine();
             }
             file.close();
-        }catch (Exception e){
+
+        }catch ( SecurityException | IOException e){
             e.printStackTrace();
         }
+        logger.info("log stop");
+
         return res;
     }
 
