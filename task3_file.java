@@ -56,7 +56,7 @@ public class task3_file {
     }
     public static String read(String localFilename) {
 
-        Logger logger = Logger.getLogger("MyLog");
+        Logger logger = Logger.getLogger(task3_file.class.getName());
         FileHandler file_log;
 
         String res = "";
@@ -76,9 +76,10 @@ public class task3_file {
             }
             file.close();
 
-        }catch ( SecurityException | IOException e){
-            e.printStackTrace();
+        }catch ( Exception e){
+            logger.warning(e.getMessage());;
         }
+        logger.info(res);
         logger.info("log stop");
 
         return res;
